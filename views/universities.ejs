@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <h1>Universities and Faculties</h1>
+    <table border="1">
+      <tr>
+        <th>University</th>
+        <th>Faculty</th>
+        <th>Address</th>
+        <th>Action</th>
+        <th>View</th>
+      </tr>
+      <% universities.forEach(university => { %> <%
+      university.faculties.forEach(faculty => { %>
+      <tr>
+        <td><%= university.name %></td>
+        <td><%= faculty.name %></td>
+        <td><%= faculty.address %></td>
+        <td>
+          <a href="/remove/<%= faculty._id %>">Delete Faculty</a>
+        </td>
+        <td><a href="/viewDetails/<%= faculty._id %>">View Faculty</a></td>
+      </tr>
+      <% }); %> <% }); %>
+    </table>
+
+    <h2>Create Faculty</h2>
+    <form action="/create" method="POST">
+      <label for="name">Faculty Name:</label>
+      <input type="text" id="name" name="name" required />
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address" required />
+      <select name="university" id="university">
+        <% universities.forEach(university => { %>
+        <option value="<%= university._id %>"><%= university.name %></option>
+        <% }); %>
+      </select>
+      <input type="submit" value="Create Faculty" />
+    </form>
+  </body>
+</html>
